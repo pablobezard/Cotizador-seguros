@@ -42,18 +42,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 .catch(error => console.error("Error al obtener la cotización del dólar: ", error));
         }
     });
-    
+
     // "Comprar"
-    const comprar = document.getElementById("comprar");
+    const comprar = document.querySelector(".comprar");
     comprar.addEventListener("click", () => {
         const mensajeCompra = document.getElementById("mensaje-compra");
         mensajeCompra.style.display = "block";
     });
 
     function calcularCotizacion(marca, anio, tipo) {
-        let cotizacion = 1000; 
+        let cotizacion = 1000;
 
-    
         if (marca === "ford") {
             cotizacion = 4200;
         } else if (marca === "chevrolet") {
@@ -74,18 +73,40 @@ document.addEventListener("DOMContentLoaded", () => {
             cotizacion = 6600;
         }
 
-        // cotización según el año 
+        // Cotización según el año
         if (anio < 2010) {
             cotizacion -= 200;
         } else if (anio < 2020) {
             cotizacion -= 100;
         }
 
-        // cotización según el tipo de seguro
+        // Cotización según el tipo de seguro
         if (tipo === "todo-riesgo") {
             cotizacion *= 1.5;
         }
 
         return cotizacion;
     }
+
+    //Boton cotizar
+    let cerrar = document.querySelectorAll(".close")[0];
+    let abrir = document.querySelectorAll(".comprar")[0];
+    let modalC = document.querySelectorAll(".modal-container")[0];
+    let modal = document.querySelectorAll(".modal")[0];
+    abrir.addEventListener("click", (e) => {
+        e.preventDefault();
+        modalC.style.opacity = "1";
+        modalC.style.visibility = "visible";
+        modal.classList.toggle("modal-close")
+    });
+
+    cerrar.addEventListener("click", (e)=>{
+        modal.classList.toggle("modal-close")
+     
+        setTimeout(()=>{
+            modalC.style.opacity = "0";
+            modalC.style.visibility = "hidden";
+        },900)
+    })
+
 });
